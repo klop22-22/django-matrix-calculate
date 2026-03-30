@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'matrix/css/index.css' %}">
+</head>
+<body>
+    <div id="header">
+        Матрицы
+    </div>
+    <div>
+        {% for cell in cells %}
+            <div>
+                <p>{{ cell }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
