@@ -1,20 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-     {% load static %}
+    <title>Matrix</title>
     <link rel="stylesheet" href="{% static 'matrix/css/index.css' %}">
 </head>
 <body>
     <div id="header">
         Матрицы
     </div>
-    <div>
-        {% for cell in cells %}
-            <div>
-                <p>{{ cell }}</p>
+    <div class="matrix">
+        <p id="matrixa">Матрица A</p>
+         {% for i in rows %}
+            <div class="rows">
+            {% for j in columns %}
+                <div class="cell">
+                    <input type="text" name="cell_{{ i }}_{{ j }}" 
+                           value="0" size="4">
+                </div>
+            {% endfor %}
             </div>
         {% endfor %}
     </div>
