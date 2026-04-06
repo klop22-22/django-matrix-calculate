@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 from matrix.models import Article
 
+app_name = 'matrix'
+
+
 def index(request):
     context = {
         'matrix': 'matrix',
