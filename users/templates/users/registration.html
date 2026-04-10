@@ -18,5 +18,15 @@
             <button type="submit">Авторизоваться</button>
         </form>
     </div>
+    <div>
+        {% if registration_form.errors %}
+            {% for field, errors in registration_form.errors.items %}
+                {{ field }}
+                {% for error in errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
 </body>
 </html>

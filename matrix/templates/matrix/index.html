@@ -12,6 +12,9 @@
         Матрицы
         <a href="{% url 'matrix:article' %}">Статьи</a>
     </div>
+    <div><a href="{% url 'users:login' %}">Войти</a></div>
+    <div><a href="{% url 'users:registration' %}">Регистрация</a></div>
+    <div><a href="{% url 'users:profile' %}">Профиль</a></div>
     <div class="matrix">
         <p id="matrixa">Матрица A</p>
          {% for i in rows %}
