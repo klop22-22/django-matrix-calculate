@@ -18,14 +18,13 @@
         </form>
     </div>
     <div>
-        {% if messages or registration_form.errors %}
+        {% if messages or login_form.errors %}
             {% if messages %}
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
             {% endif %}
-            {% for field, errors in registration_form.errors.items %}
-                {{ field }}
+            {% for field, errors in login_form.errors.items %}
                 {% for error in errors %}
                     <p>{{ error }}</p>
                 {% endfor %}

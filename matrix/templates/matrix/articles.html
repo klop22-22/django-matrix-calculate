@@ -8,7 +8,7 @@
 </head>
 <body>
     {% for article in articles %}
-        <div>{{ article.name }}</div>
+        <a href="{% url 'matrix:article_view' article.id %}">{{ article.name }}</a>
     {% endfor %}
 </body>
 </html>

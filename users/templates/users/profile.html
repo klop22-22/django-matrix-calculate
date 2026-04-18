@@ -8,6 +8,7 @@
 </head>
 <body>
     <div>
+        {{ user.username }}
         <form action="{% url 'users:profile' %}" method="post">
             {% csrf_token %}
             <p>{{ profile_form.username.label_tag }} {{ profile_form.username }}</p>
