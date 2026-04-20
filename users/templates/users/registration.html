@@ -4,29 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Регистрация</title>
     <link rel="stylesheet" href="{% static 'users/css/registration.css' %}">
 </head>
 <body>
-    <div><a href="{% url 'users:login' %}">Войти</a></div>
-    <div>
-        <form action="{% url 'users:registration' %}" method="post">
-            {% csrf_token %}
-            <p>{{ registration_form.username.label_tag }} {{ registration_form.username }}</p>
-            <p>{{ registration_form.password1.label_tag }} {{ registration_form.password1 }}</p>
-            <p>{{ registration_form.password2.label_tag }} {{ registration_form.password2 }}</p>
-            <button type="submit">Авторизоваться</button>
-        </form>
+    <div style="text-align: center;">
+        <a href="{% url 'users:login' %}">← Войти</a>
     </div>
-    <div>
-        {% if registration_form.errors %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <p>{{ registration_form.username.label_tag }} {{ registration_form.username }}</p>
+        <p>{{ registration_form.password1.label_tag }} {{ registration_form.password1 }}</p>
+        <p>{{ registration_form.password2.label_tag }} {{ registration_form.password2 }}</p>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    
+    {% if registration_form.errors %}
+        <div class="errorlist">
             {% for field, errors in registration_form.errors.items %}
-                {{ field }}
+                <strong>{{ field }}:</strong>
                 {% for error in errors %}
-                    <p>{{ error }}</p>
+                    <li>{{ error }}</li>
                 {% endfor %}
             {% endfor %}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 </body>
 </html>

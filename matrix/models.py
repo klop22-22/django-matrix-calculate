@@ -37,4 +37,4 @@ class Example(models.Model):
     class Meta:
         verbose_name = 'Пример'
         verbose_name_plural = 'Примеры'
-        ordering = ['-created_at']    
+        ordering = ['created_at']    

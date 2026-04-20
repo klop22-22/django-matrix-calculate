@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ article.name }}</title>
+    <link rel="stylesheet" href="{% static 'matrix/css/article_view.css' %}">
 </head>
 <body>
     <h1>{{ article.name }}</h1>
@@ -12,23 +14,26 @@
     <br>
 
     {% if examples %}
-    <h2>Примеры:</h2>
-    <div class="examples">
-        {% for example in examples %}
-            <div class="example-card">
-                <h3>{{ example.name }}</h3>
-                <p>{{ example.description }}</p>
-                <p><strong>Операция:</strong> {{ example.operation }}</p>
-                <p><strong>Матрица A:</strong> {{ example.matrix_a }}</p>
-                {% if example.matrix_b %}
-                    <p><strong>Матрица B:</strong> {{ example.matrix_b }}</p>
-                {% endif %}
-                <p><strong>Ожидаемый результат:</strong> {{ example.expected_result }}</p>
-            </div>
-        {% endfor %}
-    </div>
-{% else %}
-    <p>Примеров для этой темы пока нет.</p>
-{% endif %} 
+        <h2>Примеры:</h2>
+        <div class="examples">
+            {% for example in examples %}
+                <div class="example-card">
+                    <h3>{{ example.name }}</h3>
+                    <p>{{ example.description }}</p>
+                    <p><strong>Операция:</strong> {{ example.operation }}</p>
+                    <p><strong>Матрица A:</strong> {{ example.matrix_a }}</p>
+                    {% if example.matrix_b %}
+                        <p><strong>Матрица B:</strong> {{ example.matrix_b }}</p>
+                    {% endif %}
+                    <p><strong>Ожидаемый результат:</strong> {{ example.expected_result }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Примеров для этой темы пока нет.</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'matrix:article' %}" class="back-link">← Назад к статьям</a>
 </body>
 </html>

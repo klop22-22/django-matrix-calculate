@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles</title>
+    <link rel="stylesheet" href="{% static 'matrix/css/articles.css' %}">
 </head>
 <body>
+    <h1>Статьи по матрицам</h1>
+    
     {% for article in articles %}
         <a href="{% url 'matrix:article_view' article.id %}">{{ article.name }}</a>
     {% endfor %}
+    
+    <br><br>
+    <a href="{% url 'matrix:index' %}" style="display: inline-block; background-color: #333; color: white; text-align: center;">← На главную</a>
 </body>
 </html>
