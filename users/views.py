@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import auth, messages
 from .forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from .models import UserHistory
 
 
 def login(request):
@@ -34,6 +36,7 @@ def registration(request):
     return render(request, 'users/registration.html', context)    
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
@@ -48,6 +51,16 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect('users:registration')
+
+
+@login_required
+def user_history(request):
+    history = UserHistory.objects.filter(user=request.user).order_by('-created_at')
+    context = {
+        'history': history,
+    }
+    return render(request, 'users/user_history.html', context)

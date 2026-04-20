@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История вычислений</title>
+    <link rel="stylesheet" href="{% static 'users/css/history.css' %}">
+</head>
+<body>
+    <h1>История вычислений</h1>
+    
+    {% if history %}
+        <div class="stats">
+            <p>📊 Всего операций: <strong>{{ history|length }}</strong></p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата и время</th>
+                    <th>Операция</th>
+                    <th>Матрица A</th>
+                    <th>Матрица B</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in history %}
+                <tr>
+                    <td>{{ item.created_at|date:"d.m.Y H:i:s" }}</td>
+                    <td>
+                        {% if item.operation == 'add' %}➕ Сложение
+                        {% elif item.operation == 'sub' %}➖ Вычитание
+                        {% elif item.operation == 'multiply' %}✖️ Умножение
+                        {% elif item.operation == 'determinant' %}🔢 Определитель
+                        {% else %}{{ item.operation }}
+                        {% endif %}
+                    </td>
+                    <td><pre>{{ item.matrix_a|pprint }}</pre></td>
+                    <td>
+                        {% if item.matrix_b %}
+                            <pre>{{ item.matrix_b|pprint }}</pre>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td><pre>{{ item.result|pprint }}</pre></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>😕 У вас пока нет сохранённых вычислений.</p>
+        <p><a href="{% url 'matrix:index' %}">Перейти к калькулятору</a></p>
+    {% endif %}
+    
+    <br>
+    <a href="{% url 'matrix:index' %}">← На главную</a>
+</body>
+</html>

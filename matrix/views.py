@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from matrix.models import Article, Example
 from .matrix_engine import Matrix
+from users.models import UserHistory
 
 
 def index(request):
@@ -63,6 +64,12 @@ def index(request):
         except ValueError as e:
             error = str(e)        
         
+        
+        if operation == 'determinant':
+            result = [[result]]
+        else:
+            result = result
+        
         context = {
             'rows_a': range(rows_a),
             'columns_a': range(cols_a),
@@ -75,8 +82,21 @@ def index(request):
         }
         print(f"RESULT: {result}")
         print(f"ERROR: {error}")
-        return render(request, 'matrix/index.html', context)
-    
+
+        if request.user.is_authenticated and result and not error:
+            try:
+                UserHistory.objects.create(
+                    user=request.user,
+                    matrix_a=matrix_a,
+                    matrix_b=matrix_b if operation in operation_with_B else None,
+                    operation=operation,
+                    result=result
+                )
+            except Exception as e:
+                print(f"Ошибка сохранения: {e}")
+
+        return render(request, 'matrix/index.html', context)      
+
     context = {
         'rows_a': range(rows_a),
         'columns_a': range(cols_a),
@@ -85,7 +105,10 @@ def index(request):
         'B_view': B_view,
         'operation': operation,
     }
+
     return render(request, 'matrix/index.html', context)
+
+    
 
 
 def article(request):
